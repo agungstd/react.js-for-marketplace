@@ -9,14 +9,25 @@ const reportWebVitals = async (onPerfEntry) => {
     try {
       // Use dynamic import with await for better error handling
       const { getCLS, getFID, getFCP, getLCP, getTTFB } = await import('web-vitals');
-      
-      // Report each metric
-      getCLS(onPerfEntry);
-      getFID(onPerfEntry);
-      getFCP(onPerfEntry);
-      getLCP(onPerfEntry);
-      getTTFB(onPerfEntry);
-      
+
+      // Report each metric with success/failure logs
+      const reportMetric = (metricFunc, name) => {
+        try {
+          metricFunc((metric) => {
+            console.log(`Successfully reported ${name}:`, metric);
+            onPerfEntry(metric);
+          });
+        } catch (metricError) {
+          console.error(`Failed to report ${name}:`, metricError);
+        }
+      };
+
+      reportMetric(getCLS, "CLS");
+      reportMetric(getFID, "FID");
+      reportMetric(getFCP, "FCP");
+      reportMetric(getLCP, "LCP");
+      reportMetric(getTTFB, "TTFB");
+
       console.log('Web Vitals metrics reported successfully');
     } catch (error) {
       console.error('Failed to load web-vitals:', error);
