@@ -2,6 +2,10 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
+  const handleClick = () => {
+    alert("Button clicked!");
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +21,9 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={handleClick} className="App-button">
+          Click Me
+        </button>
       </header>
     </div>
   );
